@@ -988,6 +988,11 @@ def run_one(
     if max_episodes_rendered > 0:
         metrics.setdefault("video_paths", [])
     metrics.setdefault("predicted_video_paths", [])
+
+    try:
+        metrics["task_description"] = list(env.call("task_description"))[0]
+    except (AttributeError, NotImplementedError):
+        metrics["task_description"] = ""
     return task_group, task_id, metrics
 
 
